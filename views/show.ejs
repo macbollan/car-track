@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") -%>
+
+<div class="container">
+
+  <header class="jumbotron">
+    <div class="container">
+      <h1>Welcome to the best vehilce tracker</h1>
+      <p>Wait for the map to load  <%= lat %> , <%= long %> </p>
+      <p>
+        <a href="/" class="btn btn-primary btn-lg">Store loaction</a>
+        <a href="/" class="btn btn-danger btn-lg">Report</a>
+
+      </p>
+    </div>
+
+
+    <div id="map">
+      <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+    </div>
+    <p><a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></p>
+    <script>
+      var map = L.map('map').setView([<%=long%>,<%=lat%>], 8);
+      L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=xinj6wTWg04tHLy3VyQd',{
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+        crossOrigin: true
+      }).addTo(map);
+
+      var marker = L.marker([<%=long%>,<%=lat%>]).addTo(map);
+      marker.bindPopup("<iframe src='https://www.google.com/maps?q=<%=long%>,<%=lat%>+&output=embed'></iframe>");
+    </script>
+
+
+
+
+
+  </header>
+
+<%- include("partials/footer.ejs") -%>
